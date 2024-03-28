@@ -11,5 +11,6 @@ How to use:
 - Drag and drop your DTED files into the dted folder
 - Input the parameters at the top of the rockHunter.py script
 - Run rockHunter.py
+- Find the results in the command line or the results.txt file!
 
 ![alt text](https://i.imgur.com/66PHK4Q.jpeg)
