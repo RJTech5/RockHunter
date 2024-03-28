@@ -8,8 +8,8 @@ How to use:
   - Go to the "Digital Elevation" tab, then under "SRTM," select "SRTM 1 Arc-Second Global."
   - Click the "results" button at the bottom of the left window
   - The tiles that cover your selected area will appear in the left window. Click on the footprint button to overlay each tile's coverage or download the files using the download button (click on the .dted file).
-- drag and drop your DTED files into the dted folder
-- input the parameters at the top of the rockHunter.py script
-- run rockHunter.py
+- Drag and drop your DTED files into the dted folder
+- Input the parameters at the top of the rockHunter.py script
+- Run rockHunter.py
 
 ![alt text](https://i.imgur.com/66PHK4Q.jpeg)
