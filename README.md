@@ -1,4 +1,4 @@
-Are you a rock climber? Do you love exploring new, untouched terrain? If so, this program is for you! Rock Hunter uses elevation data to find potential cliffs and bouldering fields.
+Are you a climber? Do you love exploring new, untouched terrain? If so, this program is for you! Rock Hunter uses elevation data to find potential cliffs and bouldering fields.
 
 How to use:
 - To use this program to find potential rocks/cliffs, start by downloading a digital terrain elevation data (.DTED) file
