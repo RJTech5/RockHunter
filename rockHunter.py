@@ -29,20 +29,6 @@ def check_neighbor_cords(lat, long):
 
     neighbors = []
 
-    # tries to detect upper left neighbor
-    try:
-        cord = lat + cal_step_lat, long - cal_step_long
-        neighbors.append((cord, tile.get_elevation(LatLon(latitude=cord[0], longitude=cord[1]))))
-    except:
-        pass
-
-    # tries to detect upper neighbor
-    try:
-        cord = lat + cal_step_lat, long
-        neighbors.append((cord, tile.get_elevation(LatLon(latitude=cord[0], longitude=cord[1]))))
-    except:
-        pass
-
     # tries to detect upper right neighbor
     try:
         cord = lat + cal_step_lat, long + cal_step_long
@@ -71,19 +57,6 @@ def check_neighbor_cords(lat, long):
     except:
         pass
 
-    # tries to detect lower left neighbor
-    try:
-        cord = lat - cal_step_lat, long - cal_step_long
-        neighbors.append((cord, tile.get_elevation(LatLon(latitude=cord[0], longitude=cord[1]))))
-    except:
-        pass
-
-    # tries to detect left neighbor
-    try:
-        cord = lat, long + cal_step_long
-        neighbors.append((cord, tile.get_elevation(LatLon(latitude=cord[0], longitude=cord[1]))))
-    except:
-        pass
 
     cliff = False
     drop = 0
@@ -98,6 +71,7 @@ def check_neighbor_cords(lat, long):
                 drop = change
 
     return cliff, drop
+
 
 files = os.listdir("dted")
 
@@ -115,18 +89,24 @@ for file_name in files:
 
     # opens the first dted file as a tile
     dted_file = Path(f"dted/{file_name}")
-    tile = Tile(dted_file, in_memory=False)
+    tile = Tile(dted_file, in_memory=True)
+    tile.load_data(perform_checksum=False)
 
     current_lat_step = 0
     current_long_step = 0
     in_lat_range = True
     in_long_range = True
     targets = []
+    tot_rows = distance_long / step
+    current_row = 0
 
     # loops through lat and long range and checks neighbors for cliffs
     while (in_long_range):
+        current_row += 1
         current_lat_step = 0
         in_lat_range = True
+        print(f"On row {current_row} / {tot_rows} for file {file_name}")
+
         while (in_lat_range):
             if not (current_lat_step >= 1):
                 this_lat, this_long = lat + current_lat_step, long + current_long_step
@@ -141,7 +121,10 @@ for file_name in files:
 
                 # adds cliff to target if meets requirements
                 if cliff and add_cliff:
-                    targets.append(([this_lat, thiss_long], drop))
+                    targets.append(([this_lat, this_long], drop))
+                    with open("results.txt", "a") as file:
+                        file.write(f"{this_lat, this_long} | {drop} meters\n")
+                    file.close()
                     print(f"Found a cliff! {this_lat, this_long} with drop {drop}")
 
                 current_lat_step += cal_step_lat
